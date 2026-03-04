@@ -1,0 +1,290 @@
+
+:root{
+  --bg:#000;
+  --red:#ff1f1f;
+  --red2:#a80000;
+  --text:#f6f6f6;
+  --muted:#bdbdbd;
+  --glass: rgba(0,0,0,.58);
+  --border: rgba(255,31,31,.30);
+  --shadow: rgba(255,31,31,.22);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Trebuchet MS", sans-serif;
+  overflow-x:hidden;
+}
+
+/* --- Legendary blood backdrop --- */
+#bg{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  background: radial-gradient(1400px 900px at 30% 15%, rgba(255,0,0,.14), transparent 60%),
+              radial-gradient(1100px 800px at 80% 25%, rgba(160,0,0,.14), transparent 60%),
+              radial-gradient(900px 700px at 50% 85%, rgba(220,0,0,.10), transparent 55%),
+              linear-gradient(#000, #050000 42%, #000);
+}
+#bloodCanvas{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  opacity:.70;
+  filter: blur(.2px);
+}
+#vignette{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,.75) 78%, rgba(0,0,0,.95) 100%);
+}
+
+/* --- Intro cinematic --- */
+.intro{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:14px;
+  background:rgba(0,0,0,.92);
+  z-index:999;
+  transition: opacity 700ms ease, visibility 700ms ease;
+}
+.intro.hide{
+  opacity:0;
+  visibility:hidden;
+}
+.intro .logo{
+  width:230px;
+  border-radius:18px;
+  box-shadow: 0 0 55px rgba(255,31,31,.75);
+  border:1px solid rgba(255,31,31,.25);
+  transform: translateY(8px);
+  animation: introPop 900ms ease forwards;
+}
+@keyframes introPop{
+  to{ transform: translateY(0); }
+}
+.intro h1{
+  margin:0;
+  font-size:42px;
+  letter-spacing:2px;
+  text-shadow: 0 0 10px rgba(255,31,31,.75), 0 0 30px rgba(255,31,31,.25);
+}
+.intro p{
+  margin:0;
+  color:var(--muted);
+}
+.intro .hint{
+  margin-top:10px;
+  font-size:13px;
+  color:rgba(255,255,255,.55);
+}
+
+/* --- Layout --- */
+.container{
+  width:min(1100px, 92%);
+  margin:0 auto;
+  padding: 24px 0 60px;
+}
+.header{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+  padding-top: 18px;
+}
+.header .logo{
+  width:210px;
+  border-radius:18px;
+  box-shadow: 0 0 40px rgba(255,31,31,.65);
+  border:1px solid rgba(255,31,31,.22);
+}
+.title{
+  margin:0;
+  font-size:44px;
+  letter-spacing:2px;
+  text-align:center;
+  text-shadow: 0 0 10px rgba(255,31,31,.75), 0 0 26px rgba(255,31,31,.25);
+}
+.subtitle{
+  margin:0;
+  color:var(--muted);
+}
+
+/* --- Nav --- */
+.nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+  margin-top: 6px;
+}
+.nav a{
+  text-decoration:none;
+  color:#fff;
+  padding:10px 16px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background: rgba(0,0,0,.35);
+  backdrop-filter: blur(8px);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.nav a:hover{
+  transform: translateY(-1px);
+  border-color: rgba(255,31,31,.65);
+  box-shadow: 0 0 18px rgba(255,31,31,.18);
+}
+.nav a.active{
+  border-color: rgba(255,31,31,.85);
+  box-shadow: 0 0 18px rgba(255,31,31,.22);
+}
+
+/* --- Hero center box --- */
+.hero{
+  min-height: calc(100vh - 260px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 20px 0 10px;
+}
+.card{
+  width:min(860px, 100%);
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 28px rgba(0,0,0,.38);
+  padding: 22px 20px;
+}
+.card h2{
+  margin:0 0 12px;
+  font-size:24px;
+  text-shadow: 0 0 10px rgba(255,31,31,.35);
+}
+.grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  align-items:start;
+}
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border:1px solid rgba(255,31,31,.55);
+  background: rgba(255,31,31,.10);
+  box-shadow: 0 0 18px rgba(255,31,31,.10);
+  text-shadow: 0 0 10px rgba(255,31,31,.35);
+  margin: 6px 8px 0 0;
+  flex-wrap:wrap;
+}
+.muted{ color:var(--muted); }
+.list{
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+.list li{
+  margin: 9px 0;
+  line-height:1.45;
+}
+
+/* --- Pages: Members --- */
+.page{
+  margin-top:18px;
+}
+.page .card{ text-align:left; }
+.members{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+}
+.member{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding: 12px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,31,31,.18);
+  background: rgba(0,0,0,.25);
+}
+.member .medal{ filter: drop-shadow(0 0 6px rgba(255,31,31,.25)); }
+.member .name{
+  font-weight:600;
+  letter-spacing:.3px;
+}
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border:1px solid rgba(255,31,31,.35);
+  background: rgba(0,0,0,.25);
+}
+.badge b{ text-shadow: 0 0 10px rgba(255,31,31,.35); }
+
+/* --- CTA buttons --- */
+.ctaRow{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin-top: 12px;
+}
+.cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,31,31,.65);
+  background: rgba(255,31,31,.12);
+  color:#fff;
+  text-decoration:none;
+  box-shadow: 0 0 18px rgba(255,31,31,.18);
+  transition: transform .18s ease, background .18s ease;
+}
+.cta:hover{
+  transform: translateY(-1px);
+  background: rgba(255,31,31,.22);
+}
+
+/* --- Footer --- */
+.footer{
+  margin-top: 26px;
+  text-align:center;
+  color: rgba(255,255,255,.45);
+  font-size: 13px;
+}
+
+/* Reveal animation */
+.reveal{
+  opacity:0;
+  transform: translateY(10px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+.reveal.show{
+  opacity:1;
+  transform: translateY(0);
+}
+
+/* Small screens */
+@media (max-width:520px){
+  .title{font-size:34px}
+  .intro h1{font-size:34px}
+}
